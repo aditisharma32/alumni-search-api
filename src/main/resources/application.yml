@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: alumni-search-api
+  profiles:
+    active: dev
+  jpa:
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
+
+# PhantomBuster LinkedIn Scraping Integration
+phantombuster:
+  # Provide via environment variable PHANTOMBUSTER_API_KEY or application-prod.yml
+  api-key: ${PHANTOMBUSTER_API_KEY:}
+  # PhantomBuster Agent ID (e.g. LinkedIn Search Export Phantom)
+  agent-id: ${PHANTOMBUSTER_AGENT_ID:}
+  base-url: ${PHANTOMBUSTER_BASE_URL:https://api.phantombuster.com/api/v2}
+  # Set to true to force mock mode regardless of API key presence
+  mock-mode: ${PHANTOMBUSTER_MOCK_MODE:false}
+  poll-interval-ms: 2000
+  max-wait-seconds: 30
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics

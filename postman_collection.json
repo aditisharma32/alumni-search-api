@@ -1,0 +1,117 @@
+{
+  "info": {
+    "name": "Alumni Search API (PhantomBuster)",
+    "_postman_id": "b1a2c3d4-e5f6-7890-abcd-ef1234567890",
+    "description": "Collection to test the Spring Boot Alumni Search API with PhantomBuster and PostgreSQL/H2 persistence.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Search Alumni (Success)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"university\": \"University of XYZ\",\n    \"designation\": \"Software Engineer\",\n    \"passoutYear\": 2020\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/alumni/search",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "alumni", "search"]
+        },
+        "description": "Search LinkedIn alumni profiles using PhantomBuster and persist retrieved results into database."
+      },
+      "response": []
+    },
+    {
+      "name": "2. Search Alumni (Without Optional Passout Year)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"university\": \"University of XYZ\",\n    \"designation\": \"Data Scientist\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/alumni/search",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "alumni", "search"]
+        },
+        "description": "Search alumni with optional passoutYear omitted."
+      },
+      "response": []
+    },
+    {
+      "name": "3. Search Alumni (Validation Error - Missing University)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"university\": \"\",\n    \"designation\": \"Software Engineer\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/alumni/search",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "alumni", "search"]
+        },
+        "description": "Expects 400 Bad Request with field validation errors."
+      },
+      "response": []
+    },
+    {
+      "name": "4. Get Saved Alumni Profiles",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/alumni/all",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "alumni", "all"]
+        },
+        "description": "Retrieve all stored alumni profiles saved in PostgreSQL/H2 database."
+      },
+      "response": []
+    },
+    {
+      "name": "5. Actuator Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/actuator/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["actuator", "health"]
+        },
+        "description": "Spring Boot Actuator health status."
+      },
+      "response": []
+    }
+  ]
+}
